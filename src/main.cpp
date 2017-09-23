@@ -11,7 +11,7 @@
 #define POTENTIOMETER_FLOOR 1
 #define POTENTIOMETER_CEILING 10
 
-uint64_t delayDuration = 1000;  // in millis  -- 100, 200, 1000, 2000, 4000 == 10Hz, 5Hz, 1Hz, .5Hz, and .125Hz
+uint64_t delayDuration = 1000;
 uint64_t lastFlip=0;
 bool state = LOW;
 uint16_t rawPotValue = 0;
