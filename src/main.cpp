@@ -5,7 +5,7 @@
  */
 #include <Arduino.h>
 #include <Streaming.h>
-
+/*
 #define PORT_PULSE 7
 #define PIN_POTENTIOMETER A5
 #define POTENTIOMETER_FLOOR 1
@@ -18,10 +18,8 @@ uint16_t rawPotValue = 0;
 uint8_t scaledPotValue = 0;
 uint64_t currentRange = 1000; // default 0 - 10 Hz 1000 ms - 100 ms
 
+IRrecv pulseGeneratorReceiver(2);
 
-/**
- * This function will generate pulses within the frequency range of 1
- */
 void generateLowFrequentyPulses()
 {
     uint64_t now = millis();
@@ -51,4 +49,29 @@ void loop()
 {
     measurePotentiometer();
     generateLowFrequentyPulses();
+}*/
+#include <IRremote.h>
+
+int RECV_PIN = 11;
+
+IRrecv irrecv(RECV_PIN);
+
+decode_results results;
+
+void setup()
+{
+    Serial.begin(9600);
+    // In case the interrupt driver crashes on setup, give a clue
+    // to the user what's going on.
+    Serial.println("Enabling IRin");
+    irrecv.enableIRIn(); // Start the receiver
+    Serial.println("Enabled IRin");
+}
+
+void loop() {
+    if (irrecv.decode(&results)) {
+        Serial.println(results.value, HEX);
+        irrecv.resume(); // Receive the next value
+    }
+    delay(100);
 }
